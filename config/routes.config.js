@@ -14,8 +14,11 @@ router.post("/login", users.doLogin);
 router.get("/signup", users.create);
 router.post("/signup", users.doCreate);
 
+router.get("/logout", users.logout);
+
 router.get("/home", secure.isAuthenticated, users.home);
 
+router.get("/users/:id/edit", secure.isAuthenticated, users.edit);
 router.get("/users/:id", secure.isAuthenticated, users.profile);
 
 

@@ -14,6 +14,7 @@ const { session, loadSessionUser } = require('./config/session.config');
 // SETTING view engine and views folder
 app.set('view engine', 'hbs');
 app.set('views', `${__dirname}/views`);
+app.use(express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({ extended: false }));
 

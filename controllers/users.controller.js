@@ -16,7 +16,6 @@ module.exports.doLogin = (req, res, next) => {
 
     User.findOne({ email: req.body.email })
         .then((user) => {
-            console.log(user)
             if (!user) {
                 renderWithErrors({ email: 'Email not found' })
             } else {
@@ -69,9 +68,27 @@ module.exports.doCreate = (req, res, next) => {
 };
 
 module.exports.home = (req, res, next) => {
-    res.render("users/home")
+    console.log(res.locals.currentUser);
+    res.render("users/home");
 }
 
 module.exports.profile = (req, res, next) => {
+    res.render("users/profile/home",{ currentSection: req.query.section });
+}
 
+module.exports.logout = (req, res, next) => {
+    if (req.session) {
+        req.session.destroy((error) => {
+            if (error) {
+            //ERROR IS NEEDED(TO DO)
+            } else {
+                console.log('Logged out');
+                res.redirect("/login");
+            }
+        });
+    }
+}
+
+module.exports.edit = (req, res, next) => {
+    res.render("users/profile/edit")
 }
