@@ -21,6 +21,10 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, "Password is required"],
             minLength: [6, "Minimum length is: 6"]
+        },
+        about: {
+            type: String,
+            maxLength: [200, "Maximun length is: 200"]
         }
     },
     { timestamps: true }
