@@ -19,6 +19,7 @@ router.get("/logout", users.logout);
 router.get("/home", secure.isAuthenticated, users.home);
 
 router.get("/users/:id/edit", secure.isAuthenticated, users.edit);
+router.post("/users/:id/edit", secure.isAuthenticated, users.doEdit);
 router.get("/users/:id", secure.isAuthenticated, users.profile);
 
 

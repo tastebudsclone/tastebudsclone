@@ -1,6 +1,6 @@
 <div class=" d-flex justify-content-start p-2 mb-5 bg-secondary" style="--bs-bg-opacity: .5;">
     <img src="..." class="img-thumbnail me-5" alt="...">
-    <h2 class="flex-grow-1">{{currentUser.username}}</h2>
+    <h2 class="flex-grow-1">{{user.username}}</h2>
     <a class="btn btn-secondary me-1">Random</a>
     <a class="btn btn-secondary me-1">Random</a>
     <a class="btn btn-secondary">Random</a>
@@ -11,7 +11,7 @@
         <div class="sidebar col">
             <div class="d-flex align-items-start">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a href="/users/{{currentUser.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1" type="button">Overview</a>
+                    <a href="/users/{{user.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1" type="button">Overview</a>
                     <a href="/users/{{currentUser.username}}?section=tastes" class="btn mb-1 {{activeButtonClass 'tastes' currentSection}}" type="button">Tastes</a>
                     <a href="/users/{{currentUser.username}}?section=activity" class="btn mb-1 {{activeButtonClass 'activity' currentSection}}" type="button">Activity</a>
                     <a href="/users/{{currentUser.username}}?section=songs" class="btn mb-1 {{activeButtonClass 'songs' currentSection}}" type="button">Songs</a>
