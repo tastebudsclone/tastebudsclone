@@ -73,7 +73,12 @@ module.exports.home = (req, res, next) => {
 }
 
 module.exports.profile = (req, res, next) => {
-    res.render("users/profile/home",{ currentSection: req.query.section });
+    console.log(req.params)
+    User.findOne({ username: req.params.id })
+        .then(user => {
+            res.render("users/profile/home",{ user, currentSection: req.query.section});
+        })
+        .catch(next)
 }
 
 module.exports.logout = (req, res, next) => {
@@ -90,5 +95,16 @@ module.exports.logout = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-    res.render("users/profile/edit")
+    console.log(req.path)
+    res.render("users/profile/edit", { currentSection: req.query.section, currentPath: req.path})
+}
+
+module.exports.doEdit = (req, res, next) => {
+    User.findByIdAndUpdate(res.locals.currentUser, req.body)
+        .then((user) => {
+            res.redirect(`/users/${res.locals.currentUser.username}?section=about`)
+        })
+        .catch((error) => {
+            next(error);
+        })
 }
