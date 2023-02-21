@@ -73,10 +73,15 @@ module.exports.home = (req, res, next) => {
 }
 
 module.exports.profile = (req, res, next) => {
-    console.log(req.params)
-    User.findOne({ username: req.params.id })
+    User.findOne({ username: req.params.username })
         .then(user => {
-            res.render("users/profile/home",{ user, currentSection: req.query.section});
+            currentUser = req.user;
+            let canEdit = false
+            if (currentUser.username === user?.username) {
+                canEdit = true;
+            }
+            console.log(canEdit)
+            res.render("users/profile/home",{ user, canEdit, currentUser, currentSection: req.query.section});
         })
         .catch(next)
 }
@@ -93,16 +98,11 @@ module.exports.logout = (req, res, next) => {
         });
     }
 }
-
 module.exports.edit = (req, res, next) => {
-    console.log(req.path)
-    res.render("users/profile/edit", { currentSection: req.query.section, currentPath: req.path})
-}
-
-module.exports.doEdit = (req, res, next) => {
-    User.findByIdAndUpdate(res.locals.currentUser, req.body)
+    const { section } = req.query;
+    User.findByIdAndUpdate(req.user.id, req.body, { runValidators: true })
         .then((user) => {
-            res.redirect(`/users/${res.locals.currentUser.username}?section=about`)
+            res.redirect(`/users/${res.locals.currentUser.username}?section=${section}`)
         })
         .catch((error) => {
             next(error);

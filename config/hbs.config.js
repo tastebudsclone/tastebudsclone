@@ -11,6 +11,10 @@ hbs.registerHelper('activeButtonClass', (section, currentSection) => {
     return section === currentSection ? 'btn-primary' : 'btn-secondary'
 });
 
-hbs.registerHelper('activeEditButton', (path, currentPath) => {
-    return currentPath.includes(path) ? 'active' : 'inactive'
+hbs.registerHelper('activeEditButton', (user, currentUser) => {
+    return user === currentUser ? '' : 'inactive'
+});
+
+hbs.registerHelper('enableTextArea', (user, currentUser) => {
+    return user === currentUser ? '' : 'disabled'
 });
