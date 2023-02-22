@@ -5,3 +5,13 @@ module.exports.isAuthenticated = (req, res, next) => {
         res.redirect('/login');
     }
 }
+
+module.exports.isOwnedByUser = (req, res, next) => {
+    console.log(req.params.username, req.user.username)
+    if (req.params.username === req.user.username) {
+        next();
+    } else {
+        //TODO ERROR
+        res.redirect('/home')
+    }
+}

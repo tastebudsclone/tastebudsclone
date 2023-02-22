@@ -24,7 +24,10 @@ const schema = new mongoose.Schema(
         },
         about: {
             type: String,
-            maxLength: [200, "Maximun length is: 200"]
+            maxLength: [500, "Maximun length is: 500"]
+        },
+        artist: {
+            type: String
         }
     },
     { timestamps: true }
