@@ -1,0 +1,19 @@
+<div class="d-flex flex-row mb-5">
+    <img src={{artist.images.[1].url}}>
+    <div class="ms-2">
+        <h1>{{artist.name}}</h1>
+        <h5>Genres: {{artist.genres }}</h5>
+    </div>
+</div>
+<div class="albumContainer d-flex row">
+    {{#each albums as |album|}}
+        <div class="card flex-column col-4">
+            <img src={{album.images.[0].url}} class="card-img-top m-1" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{album.name}}</h5>
+                <p class="card-text">Total tracks: {{album.total_tracks}}</p>
+                <p class="card-text">Release date: {{album.release_date}}</p>
+            </div>
+        </div>
+    {{/each}}
+</div>

@@ -8,6 +8,8 @@ const spotify = require("../controllers/spotify.controller")
 const router = express.Router();
 
 router.get("/", common.home);
+router.get("/search", common.search);
+router.get("/artist/:id", common.artist)
 
 router.get("/login", users.login);
 router.post("/login", users.doLogin);
@@ -22,6 +24,8 @@ router.get("/home", secure.isAuthenticated, users.home);
 
 router.get("/users/:username", secure.isAuthenticated, spotify.artist, users.profile);
 router.post("/users/:username", secure.isAuthenticated, secure.isOwnedByUser, users.edit);
+
+
 
 
 

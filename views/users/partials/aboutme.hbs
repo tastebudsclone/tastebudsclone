@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between">
             <h5 class="card-title fa-regular fa-pen-to-square">About me...</h5> 
         </div>
-        <form method="post" action="/users/{{user.username}}?section=about">
+        <form method="POST" action="/users/{{user.username}}?section=about">
             <div class="input-group mb-2">
                 <textarea class="form-control overflow-y-auto" name="about" rows="8" {{enableTextArea user.username currentUser.username}}>{{user.about}}</textarea>
                 <button type="submit" class="btn btn-outline-secondary {{activeEditButton user.username currentUser.username}}"><i class="fa fa-edit"></i></button>
@@ -14,10 +14,9 @@
 <div class="card mb-5">
     <div class="card-body ">
         <h5 class="card-title">My favorite bands are...</h5>
-         <form method="post" action="/users/{{user.username}}?section=about">
+         <form method="POST" action="/users/{{user.username}}?section=about">
             <div class="input-group mb-2">
-                <textarea class="form-control overflow-y-auto" name="artist" rows="auto" {{enableTextArea user.username currentUser.username}}>{{user.artist}}</textarea>
-                <button type="submit" class="btn btn-outline-secondary {{activeEditButton user.username currentUser.username}}"><i class="fa fa-edit"></i></button>
+                <textarea class="form-control overflow-y-auto" name="artist" rows="auto" readonly>{{user.artist}}</textarea>
             </div>
         </form>
     </div>

@@ -1,0 +1,9 @@
+<div class="containerArtist d-flex row m-5">
+    {{#each artists as |artist|}}
+    <div class="d-flex flex-column align-items-center col-4 mb-2">
+        <img src={{artist.images.[2].url}} class="rounded" style="width: 50%; height: auto">
+        <a href="/artist/{{artist.id}}">{{artist.name}}</a>
+        <button class="btn btn-primary">Add to Artist</button>
+    </div> 
+    {{/each}}
+</div>

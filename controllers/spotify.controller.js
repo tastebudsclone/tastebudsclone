@@ -2,7 +2,7 @@ const spotifyApi = require("../config/spotify.config")
 const User = require("../models/user.model")
 
 module.exports.artist = (req, res, next) => {
-    req.user.artist.split(',').forEach(artist => {
+    req.user.artist?.split(',').forEach(artist => {
         spotifyApi
             .searchArtists(artist)
             .then(data => {

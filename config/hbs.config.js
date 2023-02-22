@@ -16,5 +16,5 @@ hbs.registerHelper('activeEditButton', (user, currentUser) => {
 });
 
 hbs.registerHelper('enableTextArea', (user, currentUser) => {
-    return user === currentUser ? '' : 'disabled'
+    return user === currentUser ? '' : 'readonly'
 });
