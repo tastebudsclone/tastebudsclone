@@ -18,3 +18,31 @@ hbs.registerHelper('activeEditButton', (user, currentUser) => {
 hbs.registerHelper('enableTextArea', (user, currentUser) => {
     return user === currentUser ? '' : 'readonly'
 });
+
+hbs.registerHelper('redBtn', (user, artist) => {
+    return user.some(x => x.id === artist.id) ? 'btn-danger' : 'btn-primary'
+});
+
+hbs.registerHelper('unfollowBtn', (user, artist) => {
+    return user.some(x => x.id === artist.id) ? 'Unfollow' : 'Follow'
+});
+
+hbs.registerHelper('artistIncluded', function(user, artist, opt) {
+    const ids = user.artists.map(x => x.id)
+    return ids.includes(artist.id) ? opt.fn(this) : opt.inverse(this)
+})
+
+hbs.registerHelper("date", (date) => {
+    const minDiff = (Date.now() - date) / 1000 / 60;
+  
+    if (minDiff > 60 * 24) {
+      return `${Math.round(minDiff / 60 / 24)}d ago`;
+    }
+  
+    if (minDiff > 60) {
+      return `${Math.round(minDiff / 60)}h ago`;
+    }
+  
+    return `${Math.round(minDiff)}m ago`;
+  });
+  

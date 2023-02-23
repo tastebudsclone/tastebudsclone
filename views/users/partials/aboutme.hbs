@@ -16,7 +16,7 @@
         <h5 class="card-title">My favorite bands are...</h5>
          <form method="POST" action="/users/{{user.username}}?section=about">
             <div class="input-group mb-2">
-                <textarea class="form-control overflow-y-auto" name="artist" rows="auto" readonly>{{user.artist}}</textarea>
+                <div class="form-control overflow-y-auto" name="artist"readonly>{{#each user.artists as |artist|}} <a href="/artist/{{artist.id}}">{{artist.name}}</a>, {{/each}}</div>
             </div>
         </form>
     </div>

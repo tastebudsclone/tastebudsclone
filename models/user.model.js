@@ -26,8 +26,13 @@ const schema = new mongoose.Schema(
             type: String,
             maxLength: [500, "Maximun length is: 500"]
         },
-        artist: {
-            type: String
+        artists: {
+            type: [{
+                id: String,
+                name: String,
+                genres: [String],
+                timestamp: Date
+            }]
         }
     },
     { timestamps: true }
