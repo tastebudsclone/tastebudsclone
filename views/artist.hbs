@@ -3,9 +3,25 @@
     <div class="ms-2">
         <h1>{{artist.name}}</h1>
         <h5>Genres: {{artist.genres }}</h5>
+        <form action="/artist/:id" method="POST">
+            <input name="id" value="{{artist.id}}" type="hidden"/>
+            <input name="name" value="{{artist.name}}" type="hidden"/>
+            <input name="genres" value="{{artist.genres}}" type="hidden"/>
+            <button type="submit" class="btn {{redBtn currentUser.artists artist}}">{{unfollowBtn currentUser.artists artist}}</button>
+        </form>
     </div>
 </div>
+    <div>
+        <ul class="list-group-horizontal row list-group-flush mb-5">
+            <h3>Top Tracks:</h3>
+            {{#each tracks as |track|}}
+                       <li class=" d-flex flex-column col-4 list-group-item mb-2">{{track.name}}
+                       <audio controls class="text-end" src={{track.preview_url}}></audio> </li>
+            {{/each}}
+        </ul>
+    </div>
 <div class="albumContainer d-flex row">
+    <h3>Albums:</h3>
     {{#each albums as |album|}}
         <div class="card flex-column col-4">
             <img src={{album.images.[0].url}} class="card-img-top m-1" alt="...">
@@ -17,3 +33,4 @@
         </div>
     {{/each}}
 </div>
+<p>More info: <a href={{artist.external_urls.spotify}}>Spotify URL</a></p>

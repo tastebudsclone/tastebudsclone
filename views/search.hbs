@@ -3,7 +3,16 @@
     <div class="d-flex flex-column align-items-center col-4 mb-2">
         <img src={{artist.images.[2].url}} class="rounded" style="width: 50%; height: auto">
         <a href="/artist/{{artist.id}}">{{artist.name}}</a>
-        <button class="btn btn-primary">Add to Artist</button>
+        <form action="/search" method="POST">
+            <input name="id" value="{{artist.id}}" type="hidden"/>
+            <input name="name" value="{{artist.name}}" type="hidden"/>
+            <input name="genres" value="{{artist.genres}}" type="hidden"/>
+            {{#artistIncluded ../user artist}}
+                 <button type="submit" class="btn btn-danger">Unfollow</button>
+            {{else}} <!-- Unfollow if you-ve already followed-->
+                <button type="submit" class="btn btn-primary">Follow</button>
+            {{/artistIncluded}}
+        </form>
     </div> 
     {{/each}}
 </div>
