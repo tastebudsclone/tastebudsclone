@@ -24,7 +24,7 @@ router.get("/home", secure.isAuthenticated, users.home);
 
 
 router.get("/users/:username", secure.isAuthenticated, users.profile);
-router.post("/users/:username", secure.isAuthenticated, secure.isOwnedByUser, users.edit);
+router.post("/users/:username", secure.isAuthenticated, secure.isOwnedByUser, users.createComment, users.edit);
 
 
 
