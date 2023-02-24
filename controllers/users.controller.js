@@ -120,14 +120,21 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.createComment = (req, res, next) => {
-    req.body.creator =  req.user.id;
-    User.findOne({ username: req.params.username })
-    .then(user => {
-        req.body.user = user;
-        Comment.create(req.body)
-            .then(() => next())
-            .catch((error) => {
-             next(error);
+    if (req.body.message) {
+        req.body.creator =  req.user.id;
+        User.findOne({ username: req.params.username })
+        .then(user => {
+            req.body.user = user;
+            Comment.create(req.body)
+                .then(() => next())
+                .catch((error) => {
+                next(error);
+            })
         })
-    })
+        .catch(error => {
+            next(error);
+        })
+    } else {
+        next()
+    }
 }
