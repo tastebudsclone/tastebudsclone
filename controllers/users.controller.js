@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const Comment = require("../models/comment.model");
+
 const session = {};
 
 module.exports.login = (req, res) => {
@@ -80,8 +82,16 @@ module.exports.profile = (req, res, next) => {
             if (currentUser.username === user?.username) {
                 canEdit = true;
             }
+            Comment.find({ user: user})
+                .populate('user')
+                .populate('creator')
+                .then((comments) => {
+                    console.log(comments);
+                    res.render("users/profile/home",{ user, comments, canEdit, currentUser, currentSection: req.query.section});
+                })
+                .catch(next);
             console.log(canEdit)
-            res.render("users/profile/home",{ user, canEdit, currentUser, currentSection: req.query.section});
+            
         })
         .catch(next)
 }
@@ -102,9 +112,22 @@ module.exports.edit = (req, res, next) => {
     const { section } = req.query;
     User.findByIdAndUpdate(req.user.id, req.body, { runValidators: true })
         .then((user) => {
-            res.redirect(`/users/${res.locals.currentUser.username}?section=${section}`)
+            res.redirect(`/users/${req.params.username}?section=${section}`)
         })
         .catch((error) => {
             next(error);
         })
+}
+
+module.exports.createComment = (req, res, next) => {
+    req.body.creator =  req.user.id;
+    User.findOne({ username: req.params.username })
+    .then(user => {
+        req.body.user = user;
+        Comment.create(req.body)
+            .then(() => next())
+            .catch((error) => {
+             next(error);
+        })
+    })
 }

@@ -10,6 +10,8 @@ module.exports.isOwnedByUser = (req, res, next) => {
     console.log(req.params.username, req.user.username)
     if (req.params.username === req.user.username) {
         next();
+    } else if (req.body.message) {
+        next();
     } else {
         //TODO ERROR
         res.redirect('/home')

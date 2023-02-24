@@ -21,3 +21,22 @@
         </form>
     </div>
 </div>
+
+<div class="card">
+    <div class="card-body">
+        <h5>Shoutbox</h5>
+        <div class="card-body">
+            {{#each comments as |comment|}}
+            <div class="p-2 mb-2 card">
+                <b><a href="/users/{{comment.creator.username}}?section=about">{{comment.creator.username}}</a></b>
+                <p>{{comment.message}}</p>
+                <small>{{date comment.createdAt}}</small>
+            </div>
+            {{/each}}
+        </div>
+        <form method="POST" action="/users/{{user.username}}?section=about">
+            <textarea class="form-control overflow-y-auto mb-2" name="message" rows="3" placeholder="Say something to {{user.username}}"></textarea>
+            <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-comment"></i></button>
+        </form>
+    </div>
+</div>
