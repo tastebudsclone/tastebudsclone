@@ -34,9 +34,11 @@
             </div>
             {{/each}}
         </div>
-        <form method="POST" action="/users/{{user.username}}?section=about">
-            <textarea class="form-control overflow-y-auto mb-2" name="message" rows="3" placeholder="Say something to {{user.username}}"></textarea>
-            <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-comment"></i></button>
+        <form method="POST" action="/users/{{user.username}}/comment">
+            <div class="input-group mb-2">
+                <textarea class="form-control overflow-y-auto mb-2" name="message" rows="3" placeholder="Say something to {{user.username}}"></textarea>
+                <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-comment"></i></button>
+            </div>
         </form>
     </div>
 </div>

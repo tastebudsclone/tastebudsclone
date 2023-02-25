@@ -25,7 +25,6 @@ module.exports.addArtist = (req, res, next) => {
         const timestamp = currentDate.toISOString();
 
         if (!currentArtistIds.includes(req.body.id)) {
-            console.log(req.body)
             req.user.artists.push({id: req.body.id, name: req.body.name, genres: req.body.genres.split(","), timestamp: timestamp})
         } else {
             req.user.artists = req.user.artists.filter(x => x.id !== req.body.id)

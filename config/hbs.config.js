@@ -32,6 +32,15 @@ hbs.registerHelper('artistIncluded', function(user, artist, opt) {
     return ids.includes(artist.id) ? opt.fn(this) : opt.inverse(this)
 })
 
+hbs.registerHelper('isArtist', function(element, opt) {
+    console.log(element)
+    if (!element.message) {
+        return opt.fn(this)
+    } else {
+        return opt.inverse(this)
+    }
+})
+
 hbs.registerHelper("date", (date) => {
     const minDiff = (Date.now() - date) / 1000 / 60;
   
