@@ -26,6 +26,9 @@ const schema = new mongoose.Schema(
             type: String,
             maxLength: [500, "Maximun length is: 500"]
         },
+        avatar: {
+            type: String
+        },
         artists: {
             type: [{
                 id: String,
