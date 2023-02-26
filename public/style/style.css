@@ -1,0 +1,18 @@
+.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.inactive {
+    display: none;
+}
+
+.max-size {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.avatar {
+    max-width: 100px;
+    max-height: 100px;
+}

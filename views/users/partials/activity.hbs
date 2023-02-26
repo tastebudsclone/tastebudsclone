@@ -1,0 +1,20 @@
+<div class="card-body">
+    <h5 class="card-title">Activity</h5>
+    {{#each postsAndArtists as |element|}}
+        {{#isArtist element}}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="card-text">{{../user.username}} followed {{element.name}}</p>
+                        <small class="card-text d-block">{{date element.timestamp}}</small>
+                    </div>
+                </div>
+        {{else}}
+        <div class="card mb-2">
+            <div class="card-body">
+                <p class="card-text">{{../user.username}} posted {{element.message}}</p>
+                <small class="card-text d-block">{{date element.createdAt}}</small>
+            </div>
+        </div>
+        {{/isArtist}}
+    {{/each}}
+</div>
