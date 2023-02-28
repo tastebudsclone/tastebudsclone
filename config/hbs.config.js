@@ -41,6 +41,15 @@ hbs.registerHelper('isArtist', function(element, opt) {
     }
 })
 
+hbs.registerHelper('isUser', function(user, currentUser, opt) {
+    console.log(user.username, currentUser.username)
+    if (user.username !== currentUser.username) {
+        return opt.fn(this)
+    } else {
+        return opt.inverse(this)
+    }
+})
+
 hbs.registerHelper("date", (date) => {
     const minDiff = (Date.now() - date) / 1000 / 60;
   

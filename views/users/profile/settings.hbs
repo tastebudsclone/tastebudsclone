@@ -1,0 +1,60 @@
+<form method="POST" action="/users/{{user.username}}/settings" enctype="multipart/form-data"class="row g-3">
+  <div class="img-container">
+    <img src="{{user.avatar}}" class="img-thumbnail avatar" alt="Avatar">
+    <div class="mb-3 col-4">
+        <label for="formFile" class="form-label" for="image">Change your profile picture</label>
+        <input  class="form-control" name="avatar" type="file" id="formFile">
+    </div>
+  </div>
+ 
+ <div class="col-md-4">
+    <label class="form-label">Username</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend3"><i class="fa fa-user"></i></span>
+      <input type="text" class="form-control" value="{{user.username}}" readonly>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">First name</label>
+    <input type="text" class="form-control">
+  </div>
+  <div class="col-4">
+    <label class="form-label">City</label>
+    <input type="text" class="form-control">
+    </div>
+  </div>
+  <div class="d-flex flex-row align-items-center justify-content-between">
+      <div class="col-md-3">
+        <label for="validationServer04" class="form-label"></label>
+        <select class="form-select">
+          <option>Status</option>
+          <option>Single</option>
+          <option>In a relationship</option>
+          <option>Married</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="validationServer04" class="form-label"></label>
+        <select class="form-select">
+          <option>Orientation</option>
+          <option>Straight</option>
+          <option>Gay</option>
+          <option>Bisexual</option>
+        </select>
+      </div>
+        <div class="col-md-3">
+        <label for="validationServer04" class="form-label"></label>
+        <select class="form-select">
+          <option>Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>I prefer not to say</option>
+        </select>
+      </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Submit changes</button>
+  </div>
+</form>

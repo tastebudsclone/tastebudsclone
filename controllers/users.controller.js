@@ -229,3 +229,28 @@ module.exports.createComment = (req, res, next) => {
         }
       });
   };
+
+  module.exports.editProfile = (req, res, next) => {
+    User.findOne({ username: req.params.username })
+      .then(user => {
+        console.log(user)
+        res.render("users/profile/settings", { user })
+      })
+      .catch(error => {
+        next(error);
+      })
+  }
+
+module.exports.doEditProfile = (req, res, next) => {
+  if (req.file) {
+    req.body.avatar = req.file.path;
+  }
+  User.findOneAndUpdate(req.params.username, req.body)
+    .then(user => {
+      console.log(req.body)
+      res.redirect(`/users/${user.username}/settings`)
+    })
+    .catch(error => {
+      next(error);
+    })
+}

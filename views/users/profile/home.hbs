@@ -1,8 +1,8 @@
-<div class=" d-flex justify-content-start p-2 mb-5 bg-secondary rounded" style="--bs-bg-opacity: .5;">
-    <form method="POST" action="/home" enctype="multipart/form-data">
+<div class=" d-flex justify-content-start align-items-end p-2 mb-5 bg-secondary rounded" style="--bs-bg-opacity: .5;">
+    <form method="GET" action="/users/{{user.username}}/settings" enctype="multipart/form-data">
         <input type="file" name="avatar" hidden>
         <label for="avatar-image">
-          <button type="submit" onclick="findAvatar()"><img class="avatar"src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="Avatar Image"></button>
+          <button type="submit" onclick="findAvatar()"><img class="avatar"src="{{user.avatar}}" alt="Avatar Image"></button>
         </label>
     </form>
     <h2 class="ps-3 modal-dialog-centered flex-grow-1">{{user.username}}</h2>

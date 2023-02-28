@@ -21,12 +21,16 @@ router.post("/signup", users.doCreate);
 
 router.get("/logout", users.logout);
 
+router.get("/match", secure.isAuthenticated, common.match);
+
 router.get("/home", secure.isAuthenticated, users.home);
-router.post("/home", secure.isAuthenticated, storage.single('image'),users.createPost);
+router.post("/home", secure.isAuthenticated, storage.single('image'), users.createPost);
 router.get("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.editPost);
 router.post("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.doEditPost);
 router.get("/home/edit/:id/delete", secure.isAuthenticated, secure.canEditHome, users.deletePost);
 
+router.get("/users/:username/settings", secure.isAuthenticated, secure.isOwnedByUser, users.editProfile);
+router.post("/users/:username/settings", secure.isAuthenticated, storage.single('avatar'), secure.isOwnedByUser, users.doEditProfile)
 router.get("/users/:username", secure.isAuthenticated, users.profile);
 router.post("/users/:username/comment", secure.isAuthenticated, users.createComment);
 router.post("/users/:username", secure.isAuthenticated, secure.isOwnedByUser, users.edit);

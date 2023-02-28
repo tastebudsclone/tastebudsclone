@@ -60,3 +60,13 @@ module.exports.artist = (req, res, next) => {
         })
         .catch(next)
 }
+
+module.exports.match = (req, res, next) => {
+    const bands = req.user.artists.map(x => x.name)
+    User.find( {"artists.name": {$in: bands}} )
+        .then(users => {
+            currentUser = res.locals.currentUser;
+            res.render("common/match", { users, currentUser })
+        })
+        .catch(next)
+}

@@ -27,12 +27,13 @@ const schema = new mongoose.Schema(
             maxLength: [500, "Maximun length is: 500"]
         },
         avatar: {
-            type: String
+            type: String,
+            default: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png"
         },
         artists: {
             type: [{
                 id: String,
-                name: String,
+                name: String ,
                 genres: [String],
                 timestamp: Date
             }]

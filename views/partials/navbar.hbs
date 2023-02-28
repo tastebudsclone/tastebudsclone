@@ -4,6 +4,7 @@
         <a class="nav-link" aria-current="page" href="/home">Home</a>
         {{#if currentUser}}
           <a class="nav-link" href="/users/{{currentUser.username}}?section=about">Profile</a>
+          <a class="nav-link" href="/match">Match</a>
           <a class="nav-link" href="/logout">Logout</a>
         {{/if}}
         <form class="d-flex ms-auto" action="/search?{{artist}}" method="GET">
