@@ -3,6 +3,7 @@ const express = require('express');
 const common = require("../controllers/common.controller");
 const users = require("../controllers/users.controller");
 const secure = require("../middlewares/secure.mid");
+const storage = require("../config/storage.config");
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post("/signup", users.doCreate);
 router.get("/logout", users.logout);
 
 router.get("/home", secure.isAuthenticated, users.home);
-router.post("/home", secure.isAuthenticated, users.createPost);
+router.post("/home", secure.isAuthenticated, storage.single('image'),users.createPost);
 router.get("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.editPost);
 router.post("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.doEditPost);
 router.get("/home/edit/:id/delete", secure.isAuthenticated, secure.canEditHome, users.deletePost);
