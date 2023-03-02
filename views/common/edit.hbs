@@ -8,6 +8,14 @@
             </div>
         </div>
         <textarea class="form-control overflow-y-auto mt-2 mb-2" name="message" rows="3" >{{post.message}}</textarea>
+        <div class="d-flex">
+            {{#if post.image}}
+            <img src="{{post.image}}" class="img-fluid max-size mx-auto" alt="...">
+            {{/if}}
+            {{#if post.song}}
+            <div><iframe width="480" height="270" src="https://www.youtube.com/embed/{{post.song}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            {{/if}}
+            </div>
         <small>{{date post.createdAt}}</small>
     </div>
 </form>

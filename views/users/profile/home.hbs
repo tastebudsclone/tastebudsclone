@@ -8,7 +8,7 @@
     <h2 class="ps-3 modal-dialog-centered flex-grow-1">{{user.username}}</h2>
     <div>
         <a class="btn btn-secondary me-1">Add photo</a>
-        <a class="btn btn-secondary me-1">Random</a>
+        <a class="btn btn-secondary me-1">Likes</a>
         <a class="btn btn-secondary">Random</a>
     </div>
 </div>
@@ -17,7 +17,7 @@
     <div class="row container-fluid">
         <div class="sidebar col">
             <div class="d-flex align-items-start">
-                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <div class="nav flex-column nav-pills me-3 bg-secondary rounded p-3" style="--bs-bg-opacity: .5;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a href="/users/{{user.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1" type="button">Overview</a>
                     <a href="/users/{{user.username}}?section=tastes" class="btn mb-1 {{activeButtonClass 'tastes' currentSection}}" type="button">Tastes</a>
                     <a href="/users/{{user.username}}?section=activity" class="btn mb-1 {{activeButtonClass 'activity' currentSection}}" type="button">Activity</a>
@@ -28,24 +28,24 @@
          </div>
         
          <div class="content col-8">
-            <div class="about {{activeSectionClass 'about' currentSection}}">
+            <div class="about {{activeSectionClass 'about' currentSection}} p-3 bg-secondary rounded" style="--bs-bg-opacity: .5;">
                 {{> aboutme}}
             </div>
-            <div class="favorites card {{activeSectionClass 'tastes' currentSection}}">
+            <div class="card {{activeSectionClass 'tastes' currentSection}} p-3 bg-secondary rounded" style="--bs-bg-opacity: .5;">
                 {{> tastes}}
             </div>
-            <div class="favorites card {{activeSectionClass 'activity' currentSection}}">
+            <div class="card {{activeSectionClass 'activity' currentSection}} p-3 bg-secondary rounded" style="--bs-bg-opacity: .5;">
                 {{> activity}}
             </div>
-            <div class="favorites card {{activeSectionClass 'songs' currentSection}}">
+            <div class="card {{activeSectionClass 'songs' currentSection}} p-3 bg-secondary rounded" style="--bs-bg-opacity: .5;">
                 {{> songs}}
             </div>
-            <div class="favorites card {{activeSectionClass 'events' currentSection}}">
+            <div class="card {{activeSectionClass 'events' currentSection}} p-3 bg-secondary rounded" style="--bs-bg-opacity: .5;">
                 {{> events}}
             </div>
          </div>
 
-         <div class="col sidecontent">
+         <div class="col sidecontent bg-secondary rounded p-3" style="--bs-bg-opacity: .5;">
              <div class="card mb-5">
                 <div class="card-body">
                     <p class="card-text">My photos</p>

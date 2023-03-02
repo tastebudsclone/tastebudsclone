@@ -37,6 +37,12 @@ const schema = new mongoose.Schema(
                 genres: [String],
                 timestamp: Date
             }]
+        },
+        songs: {
+            type: [{
+                path: String,
+                timestamp: Date
+            }]
         }
     },
     { timestamps: true }

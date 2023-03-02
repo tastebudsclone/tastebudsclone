@@ -32,9 +32,16 @@ app.use((req, res, next) => {
 const routes = require('./config/routes.config');
 app.use("/", routes);
 
+app.use((req, res, next) => {
+    next(createError(404, 'Page not found'))
+})
+
 app.use((error, req, res, next) => {
     error = !error.status ? createError(500, error) : error;
     console.error(error);
+
+    res.status(error.status)
+        .render(`errors/${error.status}`, { error });
 })
 
 const port = process.env.PORT || 3000;

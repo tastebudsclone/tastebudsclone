@@ -1,4 +1,5 @@
 const Post = require("../models/post.model");
+const createError = require('http-errors');
 
 module.exports.isAuthenticated = (req, res, next) => {
     if(req.user) {
@@ -12,8 +13,7 @@ module.exports.isOwnedByUser = (req, res, next) => {
     if (req.params.username === req.user.username) {
         next();
     } else {
-        //TODO ERROR
-        res.redirect('/home')
+        next(createError(403, 'Forbidden'))
     }
 };
 
@@ -26,7 +26,7 @@ module.exports.canEditHome = (req, res, next) => {
             if (post.user.username === req.user.username) {
                 next();
             } else {
-                res.redirect("/home")
+                next(createError(403, 'Forbidden'))
             }
         })
         .catch(next);

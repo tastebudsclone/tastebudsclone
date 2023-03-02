@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const Comment = require("../models/comment.model");
 const Post = require("../models/post.model");
+const createError = require("http-errors");
+const LikedUser = require("../models/likedUser.model");
 
 const session = {};
 
@@ -98,13 +100,18 @@ module.exports.createPost = (req, res, next) => {
     req.body.image = req.file.path;
   }
 
+  if (req.body.song) {
+    req.body.song = req.body.song.split('=')[1];
+  }
+
   req.body.user = req.user.id;
+  console.log(req.body.song)
 
   Post.create(req.body)
     .then(() => res.redirect("/home"))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        res.render("/home", { errors: err.errors, post: req.body });
+        res.render("common/home", { errors: err.errors, post: req.body });
       } else {
         next(err);
       }
@@ -153,7 +160,7 @@ module.exports.profile = (req, res, next) => {
   User.findOne({ username: req.params.username })
     .then((user) => {
         if (!user) {
-            return res.redirect("/home")
+            return next(createError(404, 'Page not found'))
         }
       Comment.find({ user: user })
         .populate("user")
@@ -169,6 +176,7 @@ module.exports.profile = (req, res, next) => {
                 posts,
                 comments,
                 currentSection: req.query.section,
+                songsArray: [...user.songs].sort((a, b) => {return b.timestamp - a.timestamp}),
                 postsAndArtists: [...posts, ...user.artists].sort((a, b) => {
                     const aDate = a.timestamp || a.createdAt
                     const bDate = b.timestamp || b.createdAt
@@ -207,6 +215,17 @@ module.exports.edit = (req, res, next) => {
     });
 };
 
+module.exports.addSong = (req, res, next) => {
+  const currentDate = new Date();
+  const timestamp = currentDate.toISOString();
+  req.user.songs.push({path: req.body.song.split('=')[1], timestamp: timestamp})
+  req.user.save()
+    .then(() => {
+      res.redirect(`/users/${req.user.username}?section=songs`);
+    })
+    .catch(next)
+}
+
 module.exports.createComment = (req, res, next) => {
     req.body.creator = req.user.id;
     User.findOne({ username: req.params.username })
@@ -230,15 +249,15 @@ module.exports.createComment = (req, res, next) => {
       });
   };
 
-  module.exports.editProfile = (req, res, next) => {
-    User.findOne({ username: req.params.username })
-      .then(user => {
-        res.render("users/profile/settings", { user })
-      })
-      .catch(error => {
-        next(error);
-      })
-  }
+module.exports.editProfile = (req, res, next) => {
+  User.findOne({ username: req.params.username })
+    .then(user => {
+      res.render("users/profile/settings", { user })
+    })
+    .catch(error => {
+      next(error);
+    })
+  };
 
 module.exports.doEditProfile = (req, res, next) => {
   if (req.file) {

@@ -1,5 +1,6 @@
-const spotifyApi = require("../config/spotify.config")
-const User = require("../models/user.model")
+const spotifyApi = require("../config/spotify.config");
+const User = require("../models/user.model");
+const LikedUser = require("../models/likedUser.model");
 
 module.exports.home = (req, res, next) => {
     res.redirect("/login")
@@ -59,14 +60,43 @@ module.exports.artist = (req, res, next) => {
                 .catch(next)
         })
         .catch(next)
-}
+};
 
 module.exports.match = (req, res, next) => {
     const bands = req.user.artists.map(x => x.name)
     User.find( {"artists.name": {$in: bands}} )
         .then(users => {
             currentUser = res.locals.currentUser;
-            res.render("common/match", { users, currentUser })
+            LikedUser.find({from: req.user.id})
+                .populate('user')
+                .then(likes => {
+                    res.render("common/match", { users, currentUser, likes})
+                })
+                .catch(next)
         })
         .catch(next)
+};
+
+module.exports.userLiked = (req, res, next) => {
+    req.body.from = req.user.id
+    User.findById(req.params.id)
+        .then(user => {
+            req.body.to = user.id;
+            LikedUser.create(req.body)
+                .then(() => {
+                    res.redirect("/match")
+                })
+                .catch(next)
+        })
+        .catch(next)
+};
+
+module.exports.userDisliked = (req, res, next) => {
+    
 }
+
+module.exports.list = (req, res, next) => {
+    User.find()
+        .then((users) => res.render("common/list", { users }))
+        .catch(next);
+};

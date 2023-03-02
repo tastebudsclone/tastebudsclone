@@ -33,7 +33,6 @@ hbs.registerHelper('artistIncluded', function(user, artist, opt) {
 })
 
 hbs.registerHelper('isArtist', function(element, opt) {
-    console.log(element)
     if (!element.message) {
         return opt.fn(this)
     } else {
@@ -41,8 +40,16 @@ hbs.registerHelper('isArtist', function(element, opt) {
     }
 })
 
+hbs.registerHelper('isLiked', (arr, user, opt) => {
+    if (arr?.filter(x => x.to === user.id)) {
+        console.log(arr, user)
+        return opt.fn(this)
+    } else {
+        return opt.inverse(this)
+    }
+})
+
 hbs.registerHelper('isUser', function(user, currentUser, opt) {
-    console.log(user.username, currentUser.username)
     if (user.username !== currentUser.username) {
         return opt.fn(this)
     } else {
