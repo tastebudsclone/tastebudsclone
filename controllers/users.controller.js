@@ -263,6 +263,17 @@ module.exports.doEditProfile = (req, res, next) => {
   if (req.file) {
     req.body.avatar = req.file.path;
   }
+  /* ADDING EVERY FILE IN THE PHOTOS ARRAY (?)
+
+  if (req.files) {
+    const files = req.files;
+    for (let i = 0; i < req.files.length; i++) {
+    req.body.photos.push(files[i].path);
+    }
+      return req.body.photos;
+  }
+  */
+
   User.findOneAndUpdate({ username: req.user.username }, req.body, { runValidators: true })
     .then(user => {
       console.log(req.user.username)

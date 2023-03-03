@@ -30,6 +30,24 @@ const schema = new mongoose.Schema(
             type: String,
             default: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png"
         },
+        photos: {
+            type: [String]
+        },
+        status: {
+            type: String
+        },
+        orientation: {
+            type: String
+        },
+        gender: {
+            type: String
+        },
+        city: {
+            type: String
+        },
+        hereFor: {
+            type: String
+        },
         artists: {
             type: [{
                 id: String,

@@ -34,7 +34,7 @@ router.post("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.
 router.get("/home/edit/:id/delete", secure.isAuthenticated, secure.canEditHome, users.deletePost);
 
 router.get("/users/:username/settings", secure.isAuthenticated, secure.isOwnedByUser, users.editProfile);
-router.post("/users/:username/settings", secure.isAuthenticated, storage.single('avatar'), secure.isOwnedByUser, users.doEditProfile)
+router.post("/users/:username/settings", secure.isAuthenticated, storage.single('avatar'), /*storage.array('photos'), */secure.isOwnedByUser, users.doEditProfile)
 router.get("/users/:username", secure.isAuthenticated, users.profile);
 router.post("/users/:username/comment", secure.isAuthenticated, users.createComment);
 router.post("/users/:username/addSong", secure.isAuthenticated, secure.isOwnedByUser, users.addSong);
