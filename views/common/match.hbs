@@ -15,12 +15,12 @@
             </div>
             <div class="d-flex flex-row justify-content-between m-2">
                 <a class="btn btn-primary" href="users/{{user.username}}?section=about">Go to profile</a>
-                {{#isLiked ../likes user}}
-                <form action="/match/{{user.id}}/dislike">
+                {{#isLiked ../likes user.id}}
+                <form action="/dislike/{{user.id}}?path=match" method="POST">
                     <button type="submit" class="btn btn-danger">Dislike <i class="fa fa-heart"></i></button>
                     </form>
                 {{else}}
-                <form action="/match/{{user.id}}" method="POST"></form>
+                <form action="/match/{{user.id}}?path=match" method="POST">
                     <button type="submit" class="btn btn-danger">Like <i class="fa fa-heart"></i></button>
                 </form>
                 {{/isLiked}}

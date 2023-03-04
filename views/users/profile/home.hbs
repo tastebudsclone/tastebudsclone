@@ -1,14 +1,13 @@
-<div class=" d-flex justify-content-start align-items-end p-2 mb-5 bg-secondary rounded" style="--bs-bg-opacity: .5;">
-    <form method="GET" action="/users/{{user.username}}/settings" enctype="multipart/form-data">
-        <input type="file" name="avatar" hidden>
-        <label for="avatar-image">
-          <button type="submit" onclick="findAvatar()"><img class="avatar"src="{{user.avatar}}" alt="Avatar Image"></button>
-        </label>
-    </form>
-    <h2 class="ps-3 modal-dialog-centered flex-grow-1">{{user.username}}   {{user.city}} {{user.age}}</h2> 
+<div class=" d-flex justify-content-between align-items-end p-2 mb-5 bg-secondary rounded" style="--bs-bg-opacity: .5;">
+    <div class="d-flex flex-row justify-content-between align-items-end">
+        <img class="avatar"src="{{user.avatar}}" alt="Avatar Image">
+        <strong><small class="ps-3 fs-2">{{user.username}}</small></strong>
+        <small class="ps-3 pb-2">{{user.city}}</small>
+        <h5 class="ps-3">{{user.age}}</h5>
+    </div> 
     <div>
-        <a class="btn btn-secondary me-1">Add photo</a>
-        <a class="btn btn-secondary me-1">Likes</a>
+        <a href="/users/{{user.username}}/settings" class="btn btn-secondary me-1">Add photo</a>
+        <a href="/users/{{user.username}}/likes" class="btn btn-secondary me-1">Likes</a>
         <a href="/users/{{user.username}}/settings" class="btn btn-secondary"><i class="fa fa-gear"></i></a>
     </div>
 </div>
@@ -18,11 +17,11 @@
         <div class="sidebar col">
             <div class="d-flex align-items-start">
                 <div class="nav flex-column nav-pills me-3 bg-secondary rounded p-3" style="--bs-bg-opacity: .5;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a href="/users/{{user.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1" type="button">Overview</a>
-                    <a href="/users/{{user.username}}?section=tastes" class="btn mb-1 {{activeButtonClass 'tastes' currentSection}}" type="button">Tastes</a>
-                    <a href="/users/{{user.username}}?section=activity" class="btn mb-1 {{activeButtonClass 'activity' currentSection}}" type="button">Activity</a>
-                    <a href="/users/{{user.username}}?section=songs" class="btn mb-1 {{activeButtonClass 'songs' currentSection}}" type="button">Songs</a>
-                    <a href="/users/{{user.username}}?section=events" class="btn {{activeButtonClass 'events' currentSection}}" type="button">Events</a>
+                    <a href="/users/{{user.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1"><i class="fa fa-home"></i><br>Overview</a>
+                    <a href="/users/{{user.username}}?section=tastes" class="btn mb-1 {{activeButtonClass 'tastes' currentSection}}" type="button"><i class="fa fa-tag"></i><br>Tastes</a>
+                    <a href="/users/{{user.username}}?section=activity" class="btn mb-1 {{activeButtonClass 'activity' currentSection}}" type="button"><i class="fa fa-list"></i><br>Activity</a>
+                    <a href="/users/{{user.username}}?section=songs" class="btn mb-1 {{activeButtonClass 'songs' currentSection}}" type="button"><i class="fa fa-music"></i><br>Songs</a>
+                    <a href="/users/{{user.username}}?section=events" class="btn {{activeButtonClass 'events' currentSection}}" type="button"><i class="fa fa-calendar"></i><br>Events</a>
                 </div>
             </div>
          </div>
@@ -50,7 +49,27 @@
                 <div class="card-body">
                     <p class="card-text">My photos</p>
                 </div>
-                <img src="..." class="card-img-top" alt="...">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <img src={{user.photos.[0]}} class="d-block w-auto" style="height: 200px">
+                        </div>
+                        {{#each photos as |photo|}}
+                        <div class="carousel-item">
+                        <img src={{photo}} class="d-block w-auto" style="height: 200px">
+                        </div>
+                        {{/each}}
+                        
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
             <div class="card">
                 <div class="card-body">

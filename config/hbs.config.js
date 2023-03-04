@@ -8,7 +8,7 @@ hbs.registerHelper('activeSectionClass', (section, currentSection) => {
 });
 
 hbs.registerHelper('activeButtonClass', (section, currentSection) => {
-    return section === currentSection ? 'btn-primary' : 'btn-secondary'
+    return section === currentSection ? 'btn-dark' : 'btn-secondary'
 });
 
 hbs.registerHelper('activeEditButton', (user, currentUser) => {
@@ -41,8 +41,9 @@ hbs.registerHelper('isArtist', function(element, opt) {
 })
 
 hbs.registerHelper('isLiked', (arr, user, opt) => {
-    if (arr?.filter(x => x.to === user.id)) {
-        console.log(arr, user)
+    if (arr.some(x => {
+        return x.to == user
+    })) {
         return opt.fn(this)
     } else {
         return opt.inverse(this)
@@ -69,5 +70,13 @@ hbs.registerHelper("date", (date) => {
     }
   
     return `${Math.round(minDiff)}m ago`;
+  });
+
+  hbs.registerHelper("selected", (value, userValue) => {
+    return value === userValue ? "selected" : ""
+  });
+
+  hbs.registerHelper("checked", (value, userValue) => {
+    return userValue.some(x => x === value) ? "checked" : ""
   });
   

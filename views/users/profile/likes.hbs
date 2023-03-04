@@ -1,0 +1,14 @@
+<h2>My likes</h2>
+<div class="card p-2"> 
+   <div class="card-body">
+    {{#each likes as |like|}} 
+    <div class="card mb-2 p-2 img-">
+      <div class="">
+        <img class="rounded float-start avatar" src="{{like.to.avatar}}">
+      </div> 
+      <p>You liked <a href="/users/{{like.to.username}}">{{like.to.username}}</a></p> 
+      <small>{{date like.createdAt}}</small>
+    </div>
+    {{/each}}
+ </div>
+</div>

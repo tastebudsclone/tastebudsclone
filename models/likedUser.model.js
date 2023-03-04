@@ -12,7 +12,7 @@ const schema = new mongoose.Schema(
       ref: 'User',
       required: [true, 'User is required']
     },
-  }
+  }, {timestamps: true}
 )
 
 module.exports = mongoose.model('LikedUser', schema);

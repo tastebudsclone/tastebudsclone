@@ -96,6 +96,9 @@ module.exports.home = (req, res, next) => {
 };
 
 module.exports.createPost = (req, res, next) => {
+  function renderWithErrors(errors) {
+    res.render("common/home", { errors, post: req.body });
+  }
   if (req.file) {
     req.body.image = req.file.path;
   }
@@ -109,11 +112,11 @@ module.exports.createPost = (req, res, next) => {
 
   Post.create(req.body)
     .then(() => res.redirect("/home"))
-    .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
-        res.render("common/home", { errors: err.errors, post: req.body });
+    .catch((error) => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        renderWithErrors(error.errors);
       } else {
-        next(err);
+        next(error);
       }
     });
 };
@@ -171,10 +174,21 @@ module.exports.profile = (req, res, next) => {
             .populate("user")
             .sort({ createdAt: "desc" })
             .then((posts) => {
+              const tastes = Object.keys(
+                user.artists
+                  .map(x => x.genres)
+                  .reduce((acc, cur) => {
+                    cur.forEach(musicGenre => acc[musicGenre] = true)
+                    return acc
+                  }, {})
+              )
+              
               res.render("users/profile/home", {
                 user,
                 posts,
+                photos: user.photos.filter(x => x !== user.photos[0]), 
                 comments,
+                tastes: tastes,
                 currentSection: req.query.section,
                 songsArray: [...user.songs].sort((a, b) => {return b.timestamp - a.timestamp}),
                 postsAndArtists: [...posts, ...user.artists].sort((a, b) => {
@@ -206,6 +220,7 @@ module.exports.logout = (req, res, next) => {
 };
 module.exports.edit = (req, res, next) => {
   const { section } = req.query;
+  console.log(req.body)
   User.findByIdAndUpdate(req.user.id, req.body, { runValidators: true })
     .then((user) => {
       res.redirect(`/users/${req.params.username}?section=${section}`);
@@ -260,21 +275,18 @@ module.exports.editProfile = (req, res, next) => {
   };
 
 module.exports.doEditProfile = (req, res, next) => {
-  if (req.file) {
-    req.body.avatar = req.file.path;
+  if (req.files.avatar) {
+    req.user.avatar = req.files.avatar[0].path;
   }
-  /* ADDING EVERY FILE IN THE PHOTOS ARRAY (?)
+  /* ADDING EVERY FILE IN THE PHOTOS ARRAY (?) */
 
-  if (req.files) {
-    const files = req.files;
-    for (let i = 0; i < req.files.length; i++) {
-    req.body.photos.push(files[i].path);
-    }
-      return req.body.photos;
+  if (req.files.photos) {
+    req.user.photos.push(...req.files.photos.map(x => x.path))
   }
-  */
 
-  User.findOneAndUpdate({ username: req.user.username }, req.body, { runValidators: true })
+  Object.assign(req.user, req.body)
+  
+  req.user.save()
     .then(user => {
       console.log(req.user.username)
       res.redirect(`/users/${user.username}/settings`)
@@ -282,4 +294,14 @@ module.exports.doEditProfile = (req, res, next) => {
     .catch(error => {
       next(error);
     })
-}
+};
+
+module.exports.likes = (req, res, next) => {
+  
+  LikedUser.find({ from: req.user.id })
+    .populate("to")
+    .then((likes) => {
+      res.render("users/profile/likes", { likes })
+    })
+    .catch(next);
+};

@@ -12,7 +12,9 @@
         <div class="card mb-2">
             <div class="card-body">
                 <p class="card-text">{{../user.username}} posted {{element.message}}</p>
-                 <img src="{{element.image}}" class="img-fluid max-size" alt="...">
+                {{#if element.image}}
+                <img src="{{element.image}}" class="img-fluid max-size" alt="...">
+                {{/if}}
                 <small class="card-text d-block">{{date element.createdAt}}</small>
             </div>
         </div>

@@ -22,8 +22,9 @@ router.post("/signup", users.doCreate);
 router.get("/logout", users.logout);
 
 router.get("/match", secure.isAuthenticated, common.match);
+router.post("/dislike/:id", secure.isAuthenticated, common.userDisliked);
 router.post("/match/:id", secure.isAuthenticated, common.userLiked);
-router.post("match/:id/dislike", secure.isAuthenticated, common.userDisliked);
+
 
 router.get("/usersList", secure.isAuthenticated, common.list)
 
@@ -34,8 +35,9 @@ router.post("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.
 router.get("/home/edit/:id/delete", secure.isAuthenticated, secure.canEditHome, users.deletePost);
 
 router.get("/users/:username/settings", secure.isAuthenticated, secure.isOwnedByUser, users.editProfile);
-router.post("/users/:username/settings", secure.isAuthenticated, storage.single('avatar'), /*storage.array('photos'), */secure.isOwnedByUser, users.doEditProfile)
+router.post("/users/:username/settings", secure.isAuthenticated, storage.fields([{ name:'avatar', maxCount: 1}, {name:'photos', maxCount: 10}]), secure.isOwnedByUser, users.doEditProfile)
 router.get("/users/:username", secure.isAuthenticated, users.profile);
+router.get("/users/:username/likes", secure.isAuthenticated, secure.isOwnedByUser, users.likes);
 router.post("/users/:username/comment", secure.isAuthenticated, users.createComment);
 router.post("/users/:username/addSong", secure.isAuthenticated, secure.isOwnedByUser, users.addSong);
 router.post("/users/:username", secure.isAuthenticated, secure.isOwnedByUser, users.edit);

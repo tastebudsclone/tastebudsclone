@@ -4,7 +4,7 @@ const LikedUser = require("../models/likedUser.model");
 
 module.exports.home = (req, res, next) => {
     res.redirect("/login")
-}
+};
 
 module.exports.search = (req, res, next) => {
     if (req.query.name) {
@@ -17,7 +17,7 @@ module.exports.search = (req, res, next) => {
      } else {
         res.render("search")
      }
-}
+};
 
 module.exports.addArtist = (req, res, next) => {
     if (req.user) {
@@ -30,7 +30,6 @@ module.exports.addArtist = (req, res, next) => {
         } else {
             req.user.artists = req.user.artists.filter(x => x.id !== req.body.id)
         }
-        
         req.user.save()
             .then((() => {
                 if (req.params.id) {
@@ -41,7 +40,7 @@ module.exports.addArtist = (req, res, next) => {
             }))
             .catch(next)
     }
-}
+};
 
 module.exports.artist = (req, res, next) => {
     spotifyApi
@@ -64,11 +63,10 @@ module.exports.artist = (req, res, next) => {
 
 module.exports.match = (req, res, next) => {
     const bands = req.user.artists.map(x => x.name)
-    User.find( {"artists.name": {$in: bands}} )
+    User.find( {"artists.name": { $in: bands }} )
         .then(users => {
             currentUser = res.locals.currentUser;
-            LikedUser.find({from: req.user.id})
-                .populate('user')
+            LikedUser.find({ from: req.user.id })
                 .then(likes => {
                     res.render("common/match", { users, currentUser, likes})
                 })
@@ -84,7 +82,11 @@ module.exports.userLiked = (req, res, next) => {
             req.body.to = user.id;
             LikedUser.create(req.body)
                 .then(() => {
-                    res.redirect("/match")
+                    if (req.query.path === 'match') {
+                        res.redirect("/match")
+                    } else {
+                        res.redirect("/usersList")
+                    }
                 })
                 .catch(next)
         })
@@ -92,11 +94,26 @@ module.exports.userLiked = (req, res, next) => {
 };
 
 module.exports.userDisliked = (req, res, next) => {
-    
-}
+    LikedUser.findOneAndDelete( {$and: [{ to: req.params.id }, { from: req.user.id }]} )
+        .then(() => {
+            if (req.query.path === 'match') {
+                res.redirect("/match")
+            } else {
+                res.redirect("/usersList")
+            }
+        })
+        .catch(next)
+};
 
 module.exports.list = (req, res, next) => {
     User.find()
-        .then((users) => res.render("common/list", { users }))
+        .then((users) => {
+            LikedUser.find({ from: req.user.id })
+            .then(likes => {
+                currentUser = res.locals.currentUser
+                res.render("common/list", { users, likes, currentUser })
+            })
+            .catch(next)
+        })
         .catch(next);
 };

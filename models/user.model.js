@@ -46,7 +46,7 @@ const schema = new mongoose.Schema(
             type: String
         },
         hereFor: {
-            type: String
+            type: [String]
         },
         artists: {
             type: [{
