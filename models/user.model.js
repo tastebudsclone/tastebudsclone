@@ -36,6 +36,15 @@ const schema = new mongoose.Schema(
         status: {
             type: String
         },
+        nationality: {
+            type: String
+        },
+        name: {
+            type: String
+        },
+        height: {
+            type: Number
+        },
         orientation: {
             type: String
         },

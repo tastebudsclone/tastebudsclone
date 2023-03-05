@@ -1,18 +1,16 @@
-
-
 <div class="d-flex flex-row row">
   <div class="col-2 me-5">
-    <div class="card d-flex justify-content-start">
+    <div class="card border-light p-2 d-flex justify-content-start">
       <h5><i class="fa fa-thumbs-up"></i> My likes</h5>
       <div class="card-body">
         {{#each likes as |like|}}
-          <img>
+          <a href="/users/{{like.to.username}}?section=about"><img class="avatar mb-1" src={{like.to.avatar}}></a>
         {{/each}}
       </div>
     </div>
   </div>
   <div class="justify-content-center col-6 ms-5 mb-5">
-      <div class="card text-end">
+      <div class="card border-light text-end mb-5">
         <div class="card-body">
           <form method="POST" action="/home" enctype="multipart/form-data">
                   <textarea class="form-control overflow-y-auto mb-2" name="message" rows="3" placeholder="What's on your mind, {{currentUser.username}}?"></textarea>
@@ -24,14 +22,13 @@
                     <label class="input-group-text" for="image"><i class="fa fa-picture-o"></i></label>
                     <input type="file" name="image" class="form-control {{#if errors.image}}is-invalid{{/if}}">
                   </div>
-                  <button type="submit" class="btn btn-outline-secondary">Post</button>
+                  <button type="submit" class="btn btn-outline-light">Post</button>
               </form>
         </div>
       </div>
-  </div>
-</div>
-<div class="d-flex justify-content-center">
-    <div class="card bg-secondary p-4 col-6">
+      <div class="d-flex flex-column justify-content-center">
+        <h5>Feed</h5>
+    <div class="card bg-secondary p-4">
       {{#each posts as |post|}} 
         <div class="card p-2 mb-5 border border-light">
             <div class="d-flex justify-content-between">
@@ -54,3 +51,18 @@
       {{/each}}
     </div>
 </div>
+  </div>
+  <div class="col">
+  <div class="card border-light">
+    <h3 class="text-center">Because you like {{artistSeed.name}}</h3>
+    {{#each artists as |artist|}}
+      <div class="card-body">
+        <img src={{artist.images.[0].url}} class="card-img-top" alt="...">
+        <a href="/artist/{{artist.id}}" class="card-text text-decoration-none">{{artist.name}}</a>
+      </div>
+    {{/each}}
+</div>
+</div>
+</div>
+
+

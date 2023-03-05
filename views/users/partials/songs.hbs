@@ -1,6 +1,6 @@
 
 <div>
-    <div class="card mb-5 p-3">
+    <div class="card border-light mb-5 p-3">
         <div class="card mb-3 p-2">
           <form action="/users/{{user.username}}/addSong" method="POST">
               <label class="form-label mb-2 card-title">What's your favourite song at the moment?</label>
@@ -11,7 +11,7 @@
     </div>
     
     
-    <div class="card p-3">
+    <div class="card border-light p-3">
         <div class="card-body p-2">
             {{#each songsArray as |song|}}
             <div class="mb-5 p-2 d-flex flex-column justify-content-center align-items-center">

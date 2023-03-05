@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const spotifyApi = require("../config/spotify.config");
 
 const Comment = require("../models/comment.model");
 const Post = require("../models/post.model");
@@ -86,11 +87,26 @@ module.exports.home = (req, res, next) => {
     .populate("user")
     .sort({ createdAt: req.query.sort || "desc" })
     .then((posts) => {
-      res.render("common/home", {
-        posts,
-        currentUser: req.user,
-        query: req.query,
-      });
+      LikedUser.find({ from: req.user.id })
+      .populate('to')
+      .populate('from')
+      .then(likes => {
+        const artistSeed = req.user.artists[Math.floor(Math.random() * req.user.artists.length)]
+        spotifyApi.getArtistRelatedArtists(artistSeed.id)
+          .then(function(data) {
+            res.render("common/home", {
+              posts,
+              artistSeed,
+              currentUser: req.user,
+              query: req.query,
+              likes,
+              artists: data.body.artists
+          })
+          }, function(err) {
+            next(err);
+          });
+      })
+      .catch(next);
     })
     .catch(next);
 };
@@ -108,7 +124,6 @@ module.exports.createPost = (req, res, next) => {
   }
 
   req.body.user = req.user.id;
-  console.log(req.body.song)
 
   Post.create(req.body)
     .then(() => res.redirect("/home"))

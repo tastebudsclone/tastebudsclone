@@ -5,7 +5,7 @@
         <small class="ps-3 pb-2">{{user.city}}</small>
         <h5 class="ps-3">{{user.age}}</h5>
     </div> 
-    <div>
+    <div class="{{activeEditButton user.username currentUser.username}}">
         <a href="/users/{{user.username}}/settings" class="btn btn-secondary me-1">Add photo</a>
         <a href="/users/{{user.username}}/likes" class="btn btn-secondary me-1">Likes</a>
         <a href="/users/{{user.username}}/settings" class="btn btn-secondary"><i class="fa fa-gear"></i></a>
@@ -45,7 +45,7 @@
          </div>
 
          <div class="col-3 sidecontent bg-secondary rounded p-2" style="--bs-bg-opacity: .5;">
-             <div class="card mb-5">
+             <div class="card border-light mb-5">
                 <div class="card-body">
                     <p class="card-text">My photos</p>
                 </div>
@@ -71,13 +71,13 @@
                     </button>
                 </div>
             </div>
-            <div class="card">
+            <div class="card border-light">
                 <div class="card-body">
                     <h5 class="card-title">Facts about me:</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-flag"></i> Nationality<p>{{user.nationality}}</p></li>
                         <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-globe"></i> City<p>{{user.city}}</p></li>
-                        <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-user"></i> Height<p>{{user.height}}</p></li>
+                        <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-user"></i> Height<p>{{user.height}} cm</p></li>
                         <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-compass"></i> Orientation<p>{{user.orientation}}</p></li>
                         <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-heart"></i> Status<p>{{user.status}}</p></li>
                         <li class="list-group-item justify-content-between align-items-center"><i class="fa fa-star"></i> Here for<p>{{user.hereFor}}</p></li>

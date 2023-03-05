@@ -7,7 +7,7 @@
     </div>
   </div>
  
- <div class="col-md-4">
+  <div class="col-md-4">
     <label class="form-label">Username</label>
     <div class="input-group has-validation">
       <span class="input-group-text" id="inputGroupPrepend3"><i class="fa fa-user"></i></span>
@@ -16,38 +16,46 @@
   </div>
   <div class="col-md-4">
     <label class="form-label">First name</label>
-    <input type="text" class="form-control">
+    <input type="text" name="name" class="form-control" value="{{user.name}}">
   </div>
   <div class="col-4">
     <label class="form-label">City</label>
     <input type="text" class="form-control"  value="{{user.city}}" name="city">
-    </div>
   </div>
-  <div class="d-flex flex-row align-items-center justify-content-between">
-      <div class="col-md-3">
-        <label class="form-label" for="status">Status</label>
-        <select class="form-select" name="status">
-          <option value="Single" {{selected "Single" user.status}}>Single</option>
-          <option value="In a relationship" {{selected "In a relationship" user.status}}>In a relationship</option>
-          <option value="Married" {{selected "Married" user.status}}>Married</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label for="orientation" class="form-label">Orientation</label>
-        <select class="form-select" name="orientation">
-          <option value="Straight" {{selected "Straight" user.orientation}}>Straight</option>
-          <option value="Gay" {{selected "Gay" user.orientation}}>Gay</option>
-          <option value="Bisexual" {{selected "Bisexual" user.orientation}}>Bisexual</option>
-        </select>
-      </div>
-        <div class="col-md-3">
-        <label for="gender" class="form-label">Gender</label>
-        <select class="form-select" name="gender">
-          <option value="Male" {{selected "Male" user.gender}}>Male</option>
-          <option value="Female" {{selected "Female" user.gender}}>Female</option>
-          <option value="I prefer not to say" {{selected "I prefer not to say" user.gender}}>I prefer not to say</option>
-        </select>
-      </div>
+  <div class="col-4">
+    <label class="form-label">Nationality</label>
+    <input type="text" class="form-control"  value="{{user.nationality}}" name="nationality">
+  </div>
+  <div class="col-4">
+    <label class="form-label">Height (in cm) </label>
+    <input type="text" class="form-control"  value="{{user.height}}" name="height">
+  </div>
+</div>
+<div class="d-flex flex-row align-items-center justify-content-between">
+  <div class="col-md-3">
+    <label class="form-label" for="status">Status</label>
+    <select class="form-select" name="status">
+      <option value="Single" {{selected "Single" user.status}}>Single</option>
+      <option value="In a relationship" {{selected "In a relationship" user.status}}>In a relationship</option>
+      <option value="Married" {{selected "Married" user.status}}>Married</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="orientation" class="form-label">Orientation</label>
+    <select class="form-select" name="orientation">
+      <option value="Straight" {{selected "Straight" user.orientation}}>Straight</option>
+      <option value="Gay" {{selected "Gay" user.orientation}}>Gay</option>
+      <option value="Bisexual" {{selected "Bisexual" user.orientation}}>Bisexual</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="gender" class="form-label">Gender</label>
+    <select class="form-select" name="gender">
+      <option value="Male" {{selected "Male" user.gender}}>Male</option>
+      <option value="Female" {{selected "Female" user.gender}}>Female</option>
+      <option value="I prefer not to say" {{selected "I prefer not to say" user.gender}}>I prefer not to say</option>
+    </select>
+  </div>
   </div>
   </div>
   </div>
