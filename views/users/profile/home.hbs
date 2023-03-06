@@ -6,8 +6,8 @@
         <h5 class="ps-3">{{user.age}}</h5>
     </div> 
     <div class="{{activeEditButton user.username currentUser.username}}">
-        <a href="/users/{{user.username}}/settings" class="btn btn-secondary me-1">Add photo</a>
-        <a href="/users/{{user.username}}/likes" class="btn btn-secondary me-1">Likes</a>
+        <a href="/users/{{user.username}}/settings" class="btn btn-secondary">Add photo</a>
+        <a href="/users/{{user.username}}/likes" class="btn btn-secondary">Likes</a>
         <a href="/users/{{user.username}}/settings" class="btn btn-secondary"><i class="fa fa-gear"></i></a>
     </div>
 </div>
@@ -16,7 +16,7 @@
     <div class="row container-fluid">
         <div class="sidebar col">
             <div class="d-flex align-items-start">
-                <div class="nav flex-column nav-pills me-3 bg-secondary rounded p-3" style="--bs-bg-opacity: .5;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <div class="nav flex-column nav-pills bg-secondary rounded p-3" style="--bs-bg-opacity: .5;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a href="/users/{{user.username}}?section=about" class="btn {{activeButtonClass 'about' currentSection}} mb-1"><i class="fa fa-home"></i><br>Overview</a>
                     <a href="/users/{{user.username}}?section=tastes" class="btn mb-1 {{activeButtonClass 'tastes' currentSection}}" type="button"><i class="fa fa-tag"></i><br>Tastes</a>
                     <a href="/users/{{user.username}}?section=activity" class="btn mb-1 {{activeButtonClass 'activity' currentSection}}" type="button"><i class="fa fa-list"></i><br>Activity</a>
