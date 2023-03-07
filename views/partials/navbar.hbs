@@ -1,31 +1,42 @@
 <nav class=" navbar-expand-lg bg-body-tertiary mb-2">
-  <div class="d-flex flex-row justify-content-between p-1">
+  <div class="d-flex flex-row justify-content-around p-1">
     <div class="navbar-nav d-flex mb-2 row">
-        <div class="p-2 col">
+        <div class="p-2 col me-4">
           <a class="navbar-brand" href="/home">
           <img src="https://tbassets.s3.amazonaws.com/assets/big-square-logo.png" class="icon">
           </a>
         </div>
-        <div class="p-2 col">
+        <div class="p-2 me-4 col">
         <a class="nav-link" aria-current="page" href="/home">Home</a>
         </div>
         {{#if currentUser}}
-        <div class="p-2 col">
+        <div class="p-2 me-4 col">
           <a class="nav-link" href="/match">Match</a>
         </div>
-        <div class="p-2 col">
-          <a class="nav-link" href="/users/{{currentUser.username}}?section=about">Profile</a>
-        </div>
-        <div class="p-2 col">
-          <a class="nav-link" href="/logout">Logout</a>
+        <div class="p-2 me-4 col">
+          <a class="nav-link" href="/usersList">People</a>
         </div>
         {{/if}}
         </div>
-        <div class="col-4 pt-2 "> 
-          <form class="d-flex text-end" action="/search?{{artist}}" method="GET">
-            <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+        <div class="col-3 d-flex flex-row align-items-center"> 
+          {{#if currentUser}}
+          <div class="btn-group p-2 me-3">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+              Profile
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+              <li><a href="/users/{{currentUser.username}}?section=about" class="dropdown-item" type="button"><i class="fa fa-user"></i>  Home</a></li>
+              <li><a href="/users/{{currentUser.username}}/settings" class="dropdown-item" type="button"><i class="fa fa-gear"></i> Settings</a></li>
+              <li><a href="/logout" class="dropdown-item" type="button"><i class="fa fa-power-off"></i> Log out</a></li>
+            </ul>
+          </div>
+          {{/if}}
+          <div>
+            <form class="d-flex text-end" action="/search?{{artist}}" method="GET">
+              <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </form>
+          </div>
         </div>
   </div>
 </nav>

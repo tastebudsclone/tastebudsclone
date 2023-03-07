@@ -1,6 +1,6 @@
 <div class="d-flex flex-row row pt-3">
   <div class="col-3">
-    <div class="card border-light p-2 d-flex justify-content-start">
+    <div class="card border-light p-2 d-flex justify-content-center text-start">
       <h5><i class="fa fa-thumbs-up"></i> My likes</h5>
       <div class="card-body">
         {{#each likes as |like|}}
@@ -28,7 +28,7 @@
       </div>
       <div class="d-flex flex-column justify-content-center">
         <h5>Feed</h5>
-    <div class="card bg-secondary p-4">
+    <div class="card bg-secondary p-4" style="--bs-bg-opacity: .5;">
       {{#each posts as |post|}} 
         <div class="card p-2 mb-5 border border-light">
             <div class="d-flex justify-content-between">
@@ -52,8 +52,9 @@
     </div>
 </div>
   </div>
+{{#if artistSeed}}
   <div class="col">
-  <div class="card border-light">
+  <div class="card border-light pt-2">
     <h3 class="text-center">Because you like {{artistSeed.name}}</h3>
     {{#each artists as |artist|}}
       <div class="card-body">
@@ -61,8 +62,10 @@
         <a href="/artist/{{artist.id}}" class="card-text text-decoration-none">{{artist.name}}</a>
       </div>
     {{/each}}
+  </div>
+  </div>
+{{/if}}
 </div>
-</div>
-</div>
+
 
 

@@ -91,8 +91,11 @@ module.exports.home = (req, res, next) => {
       .populate('to')
       .populate('from')
       .then(likes => {
-        const artistSeed = req.user.artists[Math.floor(Math.random() * req.user.artists.length)]
-        spotifyApi.getArtistRelatedArtists(artistSeed.id)
+        console.log(req.user.artists.length, 'artistas')
+
+        if (req.user.artists.length !== 0) {
+          const artistSeed = req.user.artists[Math.floor(Math.random() * req.user.artists.length)]
+          spotifyApi.getArtistRelatedArtists(artistSeed.id)
           .then(function(data) {
             res.render("common/home", {
               posts,
@@ -105,6 +108,15 @@ module.exports.home = (req, res, next) => {
           }, function(err) {
             next(err);
           });
+        } else {
+          res.render("common/home", {
+              posts,
+              currentUser: req.user,
+              query: req.query,
+              likes,
+          })
+        }
+        
       })
       .catch(next);
     })
@@ -225,7 +237,7 @@ module.exports.logout = (req, res, next) => {
   if (req.session) {
     req.session.destroy((error) => {
       if (error) {
-        //ERROR IS NEEDED(TO DO)
+        next(error);
       } else {
         console.log("Logged out");
         res.redirect("/login");
@@ -293,7 +305,6 @@ module.exports.doEditProfile = (req, res, next) => {
   if (req.files.avatar) {
     req.user.avatar = req.files.avatar[0].path;
   }
-  /* ADDING EVERY FILE IN THE PHOTOS ARRAY (?) */
 
   if (req.files.photos) {
     req.user.photos.push(...req.files.photos.map(x => x.path))

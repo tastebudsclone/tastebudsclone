@@ -9,7 +9,7 @@
             <input name="genres" value="{{artist.genres}}" type="hidden"/>
             {{#artistIncluded ../user artist}}
                  <button type="submit" class="btn btn-danger">Unfollow</button>
-            {{else}} <!-- Unfollow if you-ve already followed-->
+            {{else}} 
                 <button type="submit" class="btn btn-primary">Follow</button>
             {{/artistIncluded}}
         </form>
