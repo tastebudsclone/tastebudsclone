@@ -51,12 +51,12 @@
                 </div>
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                        <img src={{user.photos.[0]}} class="d-block w-auto" style="height: 200px">
+                        <div class="carousel-item active" style="display:flex; align-items:center">
+                        <img src={{user.photos.[0]}} class="d-block" style="height: 200px">
                         </div>
                         {{#each photos as |photo|}}
                         <div class="carousel-item">
-                        <img src={{photo}} class="d-block w-auto" style="height: 200px">
+                        <img src={{photo}} class="d-block" style="height: 200px">
                         </div>
                         {{/each}}
                         

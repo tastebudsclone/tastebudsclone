@@ -4,7 +4,7 @@
       <h5><i class="fa fa-thumbs-up"></i> My likes</h5>
       <div class="card-body">
         {{#each likes as |like|}}
-          <a href="/users/{{like.to.username}}?section=about"><img class="avatar mb-1" src={{like.to.avatar}}></a>
+          <a href="/users/{{like.to.username}}?section=about"><img class="avatar mb-1 card-avatar" src={{like.to.avatar}}></a>
         {{/each}}
       </div>
     </div>

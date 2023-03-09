@@ -14,10 +14,19 @@
 
 .avatar {
     width: 100px;
-    height: 125px;
+    height: auto;
 }
 
 .icon {
     width: 30px;
     height: 30px;
+}
+
+body {
+   min-height: 100vh;
+}
+
+.card-avatar {
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
