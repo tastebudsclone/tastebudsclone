@@ -9,6 +9,7 @@
             <input name="genres" value="{{artist.genres}}" type="hidden"/>
             <button type="submit" class="btn {{redBtn currentUser.artists artist}}">{{unfollowBtn currentUser.artists artist}}</button>
         </form>
+        <p>More info: <a href={{artist.external_urls.spotify}}>Spotify URL</a></p>
     </div>
 </div>
     <div>
@@ -33,4 +34,3 @@
         </div>
     {{/each}}
 </div>
-<p>More info: <a href={{artist.external_urls.spotify}}>Spotify URL</a></p>

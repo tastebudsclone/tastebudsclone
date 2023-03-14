@@ -294,7 +294,7 @@ module.exports.createComment = (req, res, next) => {
 module.exports.editProfile = (req, res, next) => {
   User.findOne({ username: req.params.username })
     .then(user => {
-      res.render("users/profile/settings", { user })
+      res.render("users/profile/settings", { user, currentUser: req.user })
     })
     .catch(error => {
       next(error);
@@ -321,6 +321,19 @@ module.exports.doEditProfile = (req, res, next) => {
       next(error);
     })
 };
+
+module.exports.deletePhoto = (req, res, next) => {
+  console.log(req.user.photos)
+  console.log(req.user.photos.indexOf(req.query.id))
+  const index = req.user.photos.indexOf(req.query.id)
+  if (index > -1) {
+    req.user.photos.splice(index, 1)
+    req.user.save()
+      .then(() => {
+        res.redirect(`/users/${req.user.username}/settings`)
+      })
+  }
+}
 
 module.exports.likes = (req, res, next) => {
   

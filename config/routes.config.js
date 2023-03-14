@@ -35,6 +35,7 @@ router.post("/home/edit/:id", secure.isAuthenticated, secure.canEditHome, users.
 router.get("/home/edit/:id/delete", secure.isAuthenticated, secure.canEditHome, users.deletePost);
 
 router.get("/users/:username/settings", secure.isAuthenticated, secure.isOwnedByUser, users.editProfile);
+router.get("/users/:username/deletePhoto", secure.isAuthenticated, secure.isOwnedByUser, users.deletePhoto);
 router.post("/users/:username/settings", secure.isAuthenticated, storage.fields([{ name:'avatar', maxCount: 1}, {name:'photos', maxCount: 10}]), secure.isOwnedByUser, users.doEditProfile)
 router.get("/users/:username", secure.isAuthenticated, users.profile);
 router.get("/users/:username/likes", secure.isAuthenticated, secure.isOwnedByUser, users.likes);
